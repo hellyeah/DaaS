@@ -19,6 +19,10 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var testObject = PFObject(className:"TestObject")
+        testObject["foo"] = "bar"
+        testObject.saveInBackground()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 

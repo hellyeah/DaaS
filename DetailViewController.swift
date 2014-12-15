@@ -33,13 +33,16 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        
+//        Parse.setApplicationId("RctpMTJQ1oMw0FYc1pyPfWxaFzdJIh1WVdvGCj6V",
+//            clientKey: "lVI3O2UYRK2aiXysxm1KI6qRLWrrYdrracqrv9yZ")
 //        
 //        var gameScore = PFObject(className: "GameScore")
 //        gameScore.setObject(1337, forKey: "score")
 //        gameScore.setObject("Sean Plott", forKey: "playerName")
 //        gameScore.saveInBackgroundWithBlock {
 //            (success: Bool!, error: NSError!) -> Void in
-//            if success {
+//            if (success != nil) {
 //                NSLog("Object created with id: \(gameScore.objectId)")
 //            } else {
 //                NSLog("%@", error)
