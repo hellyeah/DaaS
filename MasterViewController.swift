@@ -11,6 +11,8 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var objects = NSMutableArray()
+//    var startups: [String]
+    var startups: [String] = []
 
 
     override func awakeFromNib() {
@@ -44,8 +46,8 @@ class MasterViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let object = objects[indexPath.row] as NSDate
-            (segue.destinationViewController as DetailViewController).detailItem = object
+                let startup = startups[indexPath.row] as String
+            (segue.destinationViewController as DetailViewController).detailItem = startup
             }
         }
     }
@@ -57,14 +59,14 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return startups.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
-        let object = objects[indexPath.row] as NSDate
-        cell.textLabel.text = object.description
+        let startup = startups[indexPath.row]
+        cell.textLabel.text = startup
         return cell
     }
 
@@ -75,7 +77,7 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            objects.removeObjectAtIndex(indexPath.row)
+            startups.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -112,12 +114,15 @@ class MasterViewController: UITableViewController {
                 // Do something with the found objects
                 for object in objects {
                     NSLog("%@", object["url"] as String)
+                    self.startups.append(object["url"] as String)
                 }
+                self.tableView.reloadData()
             } else {
                 // Log details of the failure
                 NSLog("Error: %@ %@", error, error.userInfo!)
             }
         }
+
     }
 
 
