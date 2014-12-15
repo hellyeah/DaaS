@@ -18,12 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Parse.setApplicationId("RctpMTJQ1oMw0FYc1pyPfWxaFzdJIh1WVdvGCj6V",
             clientKey: "lVI3O2UYRK2aiXysxm1KI6qRLWrrYdrracqrv9yZ")
-        PFUser.enableAutomaticUser()
-        
-        var defaultACL = PFACL()
-        // If you would like all objects to be private by default, remove this line.
-        defaultACL.setPublicReadAccess(true)
-        PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
+//        
+//        PFUser.enableAutomaticUser()
+//        
+//        var defaultACL = PFACL()
+//        // If you would like all objects to be private by default, remove this line.
+//        defaultACL.setPublicReadAccess(true)
+//        PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
     
         return true
     }
