@@ -19,11 +19,9 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var testObject = PFObject(className:"TestObject")
-        testObject["foo"] = "bar"
-        testObject.saveInBackground()
         // Do any additional setup after loading the view, typically from a nib.
+        tryParse()
+        
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
@@ -81,6 +79,44 @@ class MasterViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+    
+    // MARK: - Parse Test
+    func tryParse() {
+        //save
+        var testObject = PFObject(className:"TestObject")
+        testObject["foo"] = "bar"
+        testObject.saveInBackground()
+        
+        //save long version
+        var gameScore = PFObject(className: "GameScore")
+        gameScore.setObject(1337, forKey: "score")
+        gameScore.setObject("Sean Plott", forKey: "playerName")
+        gameScore.saveInBackgroundWithBlock {
+            (success: Bool!, error: NSError!) -> Void in
+            if (success != nil) {
+                NSLog("Object created with id: \(gameScore.objectId)")
+            } else {
+                NSLog("%@", error)
+            }
+        }
+        
+        //query
+        var query = PFQuery(className:"sponsorSites")
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                // The find succeeded.
+                NSLog("Successfully retrieved \(objects.count) scores.")
+                // Do something with the found objects
+                for object in objects {
+                    NSLog("%@", object["url"] as String)
+                }
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
+            }
         }
     }
 
